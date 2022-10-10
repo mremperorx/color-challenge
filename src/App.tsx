@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+enum Result {
+  Correct,
+  Worng,
+}
+
 function App() {
   const [color, setColor] = useState("");
   const [answer, setAnswer] = useState<string[]>([]);
-  const [result, setResult] = useState<boolean | undefined>(undefined);
+  const [result, setResult] = useState<Result | undefined>(undefined);
 
   const getRandomColor = () => {
     const digits = [
@@ -46,10 +51,10 @@ function App() {
 
   const handleAnwserClicked = (answer: string) => {
     if (answer === color) {
-      setResult(true);
+      setResult(Result.Correct);
       generateColor();
     } else {
-      setResult(false);
+      setResult(Result.Worng);
     }
   };
 
@@ -79,8 +84,8 @@ function App() {
           </button>
         ))}
 
-        {result === false && <div className="worng">Worng! </div>}
-        {result === true && <div className="correct"> Correct! </div>}
+        {result === Result.Worng && <div className="worng">Worng! </div>}
+        {result === Result.Correct && <div className="correct"> Correct! </div>}
       </div>
     </div>
   );
